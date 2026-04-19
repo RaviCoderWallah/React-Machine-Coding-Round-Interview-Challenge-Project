@@ -13,7 +13,7 @@ const App = () => {
   //Calling fetch food data
   useEffect(() => {
     const fetchFood = async () => {
-      if (searchItem.length > 2) {
+      if (searchItem.length >= 2) {
         const foodApi = await fetch(`https://api.frontendeval.com/fake/food/${searchItem}`);
         const response = await foodApi.json();
         setData(response);
