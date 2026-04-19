@@ -10,20 +10,19 @@ const App = () => {
     setSearchItem(e.target.value);
   }
 
-  //fetch food data and set inside data list.
-  const fetchFood = async () => {
-    const foodApi = await fetch(`https://api.frontendeval.com/fake/food/${searchItem}`);
-    const response = await foodApi.json();
-    setData(response);
-  }
-
   //Calling fetch food data
   useEffect(() => {
-    if (searchItem.length > 2) {
-      fetchFood();
-    } else {
-      setData([]);
-    }
+    const fetchFood = async () => {
+      if (searchItem.length > 2) {
+        const foodApi = await fetch(`https://api.frontendeval.com/fake/food/${searchItem}`);
+        const response = await foodApi.json();
+        setData(response);
+      } else {
+        setData([]);
+      }
+    };
+
+    fetchFood();
   }, [searchItem])
 
   //For new entry food list 
