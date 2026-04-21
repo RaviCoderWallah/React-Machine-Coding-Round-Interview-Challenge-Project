@@ -4,6 +4,8 @@ const App = () => {
   const [cryptoAmount, setCryptoAmount] = useState(1);
   const [currency, setCurrency] = useState("usd");
   const [liveData, setLiveData] = useState(null);
+  const [isIncreased, setIsIncreased] = useState(false);
+  const [diff, setDiff] = useState(null);
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -11,6 +13,25 @@ const App = () => {
         const response = await fetch(`https://api.frontendeval.com/fake/crypto/${currency}`);
         const result = await response.json();
         setLiveData(result.value);
+        
+        let preVal = window.sessionStorage.getItem("Prev Value");
+        
+        if (preVal !== null) {
+          // We have a previous value to compare
+          preVal = parseFloat(preVal);
+          let difference = Math.abs(result.value - preVal);
+          setDiff(difference.toFixed(2));
+          
+          // Check if increased or decreased
+          if (result.value > preVal) {
+            setIsIncreased(true);
+          } else {
+            setIsIncreased(false);
+          }
+        }
+        
+        // Store current value as previous for next comparison
+        window.sessionStorage.setItem("Prev Value", result.value);
       }
       fetchData();
     }, 2000)
@@ -47,6 +68,9 @@ const App = () => {
         {
           <div className="flex items-center gap-8">
             <p className="text-xl">{total.toFixed(2)} WUC</p>
+            <p className={`text-xl ${diff !== null ? (isIncreased ? "text-green-500" : "text-red-500") : "text-gray-400"}`}>
+              {diff !== null ? `${isIncreased ? "↑" : "↓"} ${diff}` : "—"}
+            </p>
           </div>
         }
 
