@@ -1,3 +1,5 @@
+import CheckboxNode from "./components/CheckboxNode";
+
 const checkBoxData = [
   {
     id: 1,
@@ -96,6 +98,9 @@ const App = () => {
   return (
     <div className="m-8">
       <h1 className="text-xl">Nested Checkbox</h1>
+      {checkBoxData.map((item) => (
+        <CheckboxNode key={item.id} item={item} depth={0} />
+      ))}
     </div>
   )
 }
