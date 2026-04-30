@@ -11,18 +11,20 @@ const GlobalHeader = () => {
     return (
         <header className="bg-white py-4 outline-b outline-gray-600 shadow-sm">
             <div className="max-w-5xl mx-auto flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                    <h3 className="text-2xl text-blue-600"><FaShoppingBag /></h3>
-                    <h2 className="text-xl font-semibold">ShopNow</h2>
-                </div>
+                <NavLink to="/">
+                    <div className="flex items-center gap-2">
+                        <h3 className="text-2xl text-blue-600"><FaShoppingBag /></h3>
+                        <h2 className="text-xl font-semibold">ShopNow</h2>
+                    </div>
+                </NavLink>
                 <div className="flex items-center gap-8">
-                    <NavLink to="/" className={({isActive}) => isActive ? "text-blue-600" : "text-black"}>
+                    <NavLink to="/" className={({ isActive }) => isActive ? "text-blue-600" : "text-black"}>
                         <h3 className="text-2xl"><IoHome /></h3>
                     </NavLink>
-                    <NavLink to="/products" className={({isActive}) => isActive ? "text-blue-600" : "text-black"}>
+                    <NavLink to="/products" className={({ isActive }) => isActive ? "text-blue-600" : "text-black"}>
                         <h3 className="text-2xl"><BiSolidShoppingBagAlt /></h3>
                     </NavLink>
-                    <NavLink to="/carts" className={({isActive}) => isActive ? "text-blue-600" : "text-black"}>
+                    <NavLink to="/carts" className={({ isActive }) => isActive ? "text-blue-600" : "text-black"}>
                         <h3 className="text-2xl"><FaShoppingCart /></h3>
                     </NavLink>
                     <h3 className="text-2xl">{19 > age ? <FaSun /> : <MdDarkMode />} </h3>
