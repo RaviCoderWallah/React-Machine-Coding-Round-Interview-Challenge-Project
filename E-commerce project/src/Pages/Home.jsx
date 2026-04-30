@@ -1,6 +1,10 @@
+import CarouselSlider from "../components/CarouselSlider"
+
 const Home = () => {
   return (
-    <div>Home</div>
+    <div>
+      <CarouselSlider />
+    </div>
   )
 }
 
