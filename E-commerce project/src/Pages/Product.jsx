@@ -37,7 +37,6 @@ const Product = () => {
   const filteredData = searchQueryString
     ? dataToShow?.products.filter((product) => product.title.toLowerCase().includes( searchQueryString.toLowerCase())) || []
     : dataToShow?.products || [];
-  console.log(filteredData);
 
   return (
     <div className="max-w-5xl mx-auto my-8 bg-white p-2 grid grid-cols-10 gap-8">

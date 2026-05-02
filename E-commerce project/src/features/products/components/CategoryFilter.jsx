@@ -28,7 +28,7 @@ const CategoryFilter = ({ categoryList, setCategorySelected, categorySelected })
                                 checked={categorySelected === categoryItem}
                                 onChange={(e) => setCategorySelected(e.target.value)}
                             />
-                            <label htmlFor={categoryItem}>{categoryItem}</label>
+                            <label htmlFor={categoryItem} className="capitalize">{categoryItem}</label>
                         </div>
                     )
                 })

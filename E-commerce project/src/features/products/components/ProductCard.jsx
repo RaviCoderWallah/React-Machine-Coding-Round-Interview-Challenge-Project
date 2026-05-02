@@ -1,3 +1,5 @@
+import { NavLink } from "react-router"
+
 const ProductCard = ({ product }) => {
     return (
         <div key={product.id} className="bg-gray-100 outline-1 flex flex-col justify-between gap-2 outline-gray-300 p-2 rounded-sm">
@@ -17,7 +19,9 @@ const ProductCard = ({ product }) => {
                 <p className="text-sm">Availability: <span className={`${product.availabilityStatus === "In Stock" ? "text-green-600" : "text-red-700"}`}>{product.availabilityStatus}</span></p>
                 <p className="text-sm">Warranty: <span className="text-gray-700">{product.warrantyInformation}</span></p>
             </div>
-            <button className="bg-blue-600 text-white py-1 rounded-sm hover:bg-blue-700 cursor-pointer text-sm">View Details</button>
+            <NavLink to={`/products/${product.id}`}>
+                <button className="bg-blue-600 text-white py-1 px-2 rounded-sm hover:bg-blue-700 cursor-pointer text-sm">View Details</button>
+            </NavLink>
         </div>
     )
 }

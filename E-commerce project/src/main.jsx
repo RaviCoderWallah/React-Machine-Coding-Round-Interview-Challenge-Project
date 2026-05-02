@@ -5,6 +5,7 @@ import Home from './Pages/Home.jsx';
 import Product from './Pages/Product.jsx';
 import Cart from './Pages/Cart.jsx';
 import App from './App.jsx';
+import ProductDetailsPage from './features/products/components/ProductDetailsPage.jsx';
 
 
 const router = createBrowserRouter([
@@ -14,6 +15,7 @@ const router = createBrowserRouter([
     children: [
       { path: "/", element: <Home /> },
       { path: "/products", element: <Product /> },
+      { path: "/products/:productID", element: <ProductDetailsPage /> },
       { path: "/carts", element: <Cart /> }
     ]
   }
