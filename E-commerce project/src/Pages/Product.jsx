@@ -1,4 +1,5 @@
 import useFetch from "../hooks/useFetch";
+import useDebounce from "../hooks/useDebounce";
 import LoadingSkeleton from "../features/products/components/LoadingSkeleton";
 import ProductList from "../features/products/components/ProductList";
 import SidebarControls from "../features/products/components/SidebarControls";
@@ -9,6 +10,7 @@ const totalPages = 32;
 const Product = () => {
   const [productSkip, setProductSkip] = useState(0);
   const [categorySelected, setCategorySelected] = useState("All");
+  const [searchInputValue, setSearchInputValue] = useState("");
 
   // For Pagination 
   const PRODUCT_API = `https://dummyjson.com/products?limit=6&skip=${productSkip}`;
@@ -17,28 +19,36 @@ const Product = () => {
 
   //For Show All Category List in Sidebar Controls
   const CATEGORY_LIST_API = "https://dummyjson.com/products/category-list";
-  const { data: categoryList, error: categoryError} = useFetch(CATEGORY_LIST_API);
-  if(categoryError) console.error(categoryError);
+  const { data: categoryList, error: categoryError } = useFetch(CATEGORY_LIST_API);
+  if (categoryError) console.error(categoryError);
 
   //For Get All Date Based Upon Category Filtered - Only fetch when category is NOT "All"
-  const SEARCH_BY_CATEGORY_API = categorySelected !== "All" 
+  const SEARCH_BY_CATEGORY_API = categorySelected !== "All"
     ? `https://dummyjson.com/products/category/${categorySelected}`
     : null;
-  const {data: filteredCategoryData, error: filteredCategoryError } = useFetch(SEARCH_BY_CATEGORY_API);
-  if(filteredCategoryError) console.error(filteredCategoryError);
+  const { data: filteredCategoryData, error: filteredCategoryError } = useFetch(SEARCH_BY_CATEGORY_API);
+  if (filteredCategoryError) console.error(filteredCategoryError);
 
   // Determine which data to show
   const dataToShow = categorySelected === "All" ? data : filteredCategoryData;
 
+  //For Search Input Query 
+  const searchQueryString = useDebounce(searchInputValue);
+  const filteredData = searchQueryString
+    ? dataToShow?.products.filter((product) => product.title.toLowerCase().includes( searchQueryString.toLowerCase())) || []
+    : dataToShow?.products || [];
+  console.log(filteredData);
+
   return (
     <div className="max-w-5xl mx-auto my-8 bg-white p-2 grid grid-cols-10 gap-8">
-
 
       {/* Sidebar Filters Controls - Search Bar, Category and more.. */}
       <SidebarControls
         categoryList={categoryList}
         setCategorySelected={setCategorySelected}
         categorySelected={categorySelected}
+        setSearchInputValue={setSearchInputValue}
+        searchInputValue={searchInputValue}
       />
 
       {/* Show Loading Skeleton Cards  */}
@@ -48,7 +58,7 @@ const Product = () => {
 
       {/* Pass Product All Data and Show Product List  */}
       <ProductList
-        data={dataToShow}
+        data={{ ...dataToShow, products: filteredData }}
         totalPages={totalPages}
         setProductSkip={setProductSkip}
         productSkip={productSkip}

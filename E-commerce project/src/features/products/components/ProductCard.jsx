@@ -1,6 +1,6 @@
 const ProductCard = ({ product }) => {
     return (
-        <div key={product.id} className="bg-gray-100 outline-1 flex flex-col justify-between outline-gray-300 p-2 rounded-sm">
+        <div key={product.id} className="bg-gray-100 outline-1 flex flex-col justify-between gap-2 outline-gray-300 p-2 rounded-sm">
             <img src={product.thumbnail} className="w-18" alt="" />
             <div className="flex items-center justify-between">
                 <h1 className="font-medium text-gray-800">{product.title}</h1>
