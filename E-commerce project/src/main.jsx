@@ -6,6 +6,7 @@ import Product from './Pages/Product.jsx';
 import Cart from './Pages/Cart.jsx';
 import App from './App.jsx';
 import ProductDetailsPage from './features/products/components/ProductDetailsPage.jsx';
+import { CartProvider } from './context/CartContext.jsx';
 
 
 const router = createBrowserRouter([
@@ -24,5 +25,7 @@ const router = createBrowserRouter([
 const root = document.getElementById("root");
 
 ReactDOM.createRoot(root).render(
-  <RouterProvider router={router} />,
+  <CartProvider>
+    <RouterProvider router={router} />
+  </CartProvider>
 );

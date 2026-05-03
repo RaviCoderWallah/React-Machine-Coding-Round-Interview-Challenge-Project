@@ -9,7 +9,7 @@ import { IoHome } from "react-icons/io5";
 const GlobalHeader = () => {
     const age = 18;
     return (
-        <header className="bg-white py-4 outline-b outline-gray-600 shadow-sm">
+        <header className="bg-white py-4 outline-b outline-gray-600 shadow-sm sticky top-0 z-50">
             <div className="max-w-5xl mx-auto flex items-center justify-between">
                 <NavLink to="/">
                     <div className="flex items-center gap-2">
