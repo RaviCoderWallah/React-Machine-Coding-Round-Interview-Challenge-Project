@@ -33,7 +33,7 @@ const ProductDetailsPage = () => {
     //Hanlde Add To Cart Items 
     const { addToCart } = useCart();
     const handleAddToCart = (productDetails) => {
-        console.log(productDetails);
+       
         addToCart({
             productID: productDetails.id,
             title: productDetails.title,
@@ -41,6 +41,9 @@ const ProductDetailsPage = () => {
             quantity: productCount,
             thumbnail: productDetails.thumbnail
         });
+
+        //Toast Notifications 
+        alert("Successfully added: "  + productDetails.title);
     }
 
     //Handle Product Count 
