@@ -4,7 +4,7 @@ import { useCart } from "../hooks/useCart"
 
 const Cart = () => {
   const { cartItems } = useCart();
-  console.log(cartItems);
+
   return (
     <div className="max-w-5xl mx-auto my-8">
       {

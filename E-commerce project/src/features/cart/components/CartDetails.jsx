@@ -1,21 +1,32 @@
 import { BiArrowBack } from "react-icons/bi"
 import CartCard from "./CartCard"
 import { useNavigate } from "react-router"
+import { useCart } from "../../../hooks/useCart";
 
 const CartDetails = ({ cartDetail }) => {
   const navigate = useNavigate();
+  const {clearCart, totalPrice, totalQuantity} = useCart();
 
+  //For Navigate to Product Page
   const handleBackToShopping = () => {
     navigate("/products");
+  }
+
+  //Handle Clear All Carts In List
+  const handleClearAllCarts = () => {
+    clearCart();
   }
 
   return (
     <div className="grid grid-cols-2 gap-8">
       <div>
         <button onClick={handleBackToShopping} className="text-lg text-blue-600 underline flex items-center gap-2"><BiArrowBack /> Back To Shopping </button>
-        <div className="flex items-center gap-2 border-b my-8 py-4">
-          <input type="checkbox" name="itemsSelected" className="scale-120" />
-          <label htmlFor="itemsSelected" className="text-xl font-medium text-gray-800">0 Items Selected</label>
+        <div className="flex items-center justify-between border-b my-8 py-4">
+          <div className="flex items-center gap-2">
+            <input type="checkbox" name="itemsSelected" className="scale-120" />
+            <label htmlFor="itemsSelected" className="text-xl font-medium text-gray-800">0 Items Selected</label>
+          </div>
+          <button className="text-red-600 underline cursor-pointer hover:text-red-700" onClick={handleClearAllCarts}>Clear All</button>
         </div>
         <div className="flex flex-col gap-4">
           {
@@ -30,11 +41,11 @@ const CartDetails = ({ cartDetail }) => {
         <div className="flex flex-col gap-4">
           <div className="flex justify-between items-center">
             <p className="text-xl font-semibold text-gray-800">Total Quanity</p>
-            <p className="text-3xl font-semibold text-gray-800">5 pieces</p>
+            <p className="text-3xl font-semibold text-gray-800">{totalQuantity()} pieces</p>
           </div>
           <div className="flex justify-between items-center">
             <p className="text-xl font-semibold text-gray-800">Total Price</p>
-            <p className="text-3xl font-semibold text-gray-800">$899.45</p>
+            <p className="text-3xl font-semibold text-gray-800">${totalPrice().toFixed(2)}</p>
           </div>
           <button className="bg-blue-600 text-white py-2 rounded-sm cursor-pointer hover:bg-blue-700">Order Now</button>
         </div>
