@@ -1,13 +1,18 @@
-import { FaShoppingBag, FaShoppingCart } from "react-icons/fa";
+import { FaMoon, FaShoppingBag, FaShoppingCart } from "react-icons/fa";
 import { FaUserCircle } from "react-icons/fa";
-import { MdDarkMode } from "react-icons/md";
 import { FaSun } from "react-icons/fa";
 import { NavLink } from "react-router";
 import { BiSolidShoppingBagAlt } from "react-icons/bi";
 import { IoHome } from "react-icons/io5";
+import useTheme from "../hooks/useTheme";
+
 
 const GlobalHeader = () => {
-    const age = 18;
+    const {theme, toggleTheme} = useTheme();
+    const handleToogleTheme = () => {
+        toggleTheme()
+    }
+
     return (
         <header className="bg-white py-4 outline-b outline-gray-600 shadow-sm sticky top-0 z-50">
             <div className="max-w-5xl mx-auto flex items-center justify-between">
@@ -27,7 +32,9 @@ const GlobalHeader = () => {
                     <NavLink to="/carts" className={({ isActive }) => isActive ? "text-blue-600" : "text-black"}>
                         <h3 className="text-2xl"><FaShoppingCart /></h3>
                     </NavLink>
-                    <h3 className="text-2xl">{19 > age ? <FaSun /> : <MdDarkMode />} </h3>
+                    <button className="text-2xl cursor-pointer" onClick={handleToogleTheme}>
+                        {theme === "light" ? <FaSun /> : <FaMoon/>} 
+                    </button>
                     <h3 className="text-2xl"><FaUserCircle /></h3>
                 </div>
             </div>
